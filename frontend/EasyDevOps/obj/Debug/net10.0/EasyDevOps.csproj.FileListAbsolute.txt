@@ -1,0 +1,5 @@
+C:\Users\hetzner\EasyDevOps\frontend\EasyDevOps\obj\Debug\net10.0\EasyDevOps.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\hetzner\EasyDevOps\frontend\EasyDevOps\obj\Debug\net10.0\EasyDevOps.AssemblyInfoInputs.cache
+C:\Users\hetzner\EasyDevOps\frontend\EasyDevOps\obj\Debug\net10.0\EasyDevOps.AssemblyInfo.cs
+C:\Users\hetzner\EasyDevOps\frontend\EasyDevOps\obj\Debug\net10.0\EasyDevOps.csproj.CoreCompileInputs.cache
+C:\Users\hetzner\EasyDevOps\frontend\EasyDevOps\obj\Debug\net10.0\EasyDevOps.sourcelink.json
