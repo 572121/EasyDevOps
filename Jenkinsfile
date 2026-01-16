@@ -17,8 +17,14 @@ pipeline {
 
         stage('Security Test (Dependency-Check)') {
             steps {
-                dependencyCheck additionalArguments: '--scan "frontend\\EasyDevOps" --format HTML', odcInstallation: 'Default'
-                dependencyCheckPublisher pattern: '**/dependency-check-report.html'
+                dependencyCheck additionalArguments: '''
+                    --scan "frontend\\EasyDevOps"
+                    --format HTML
+                    --out "dependency-check-report"
+                    --noupdate
+                '''.trim(), odcInstallation: 'Default'
+
+                dependencyCheckPublisher pattern: '**/dependency-check-report/dependency-check-report.html'
             }
         }
     }
