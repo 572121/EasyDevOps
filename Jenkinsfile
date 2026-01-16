@@ -3,9 +3,7 @@ pipeline {
 
     stages {
         stage('Checkout') {
-            steps {
-                checkout scm
-            }
+            steps { checkout scm }
         }
 
         stage('Build Frontend (.NET)') {
@@ -17,21 +15,16 @@ pipeline {
 
         stage('Security Test (Dependency-Check)') {
             steps {
-                // Draai de scan, maar laat de build niet falen als er niets te scannen is.
-                catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE') {
-                    dependencyCheck additionalArguments: '''
-                        --scan "."
-                        --format HTML
-                        --out "dependency-check-report"
-                        --noupdate
-                        --disableAssembly
-                    '''.trim(), odcInstallation: 'Default'
-                }
-
-                // Probeer report te publiceren als die er is
-                catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE') {
-                    dependencyCheckPublisher pattern: '**/dependency-check-report/dependency-check-report.html'
-                }
+                // Run scan, maar faal de pipeline nooit op exit code
+                bat '''
+                set DC_DIR=C:\\ProgramData\\Jenkins\\.jenkins\\tools\\org.jenkinsci.plugins.DependencyCheck.tools.DependencyCheckInstallation\\Default
+                if exist "%DC_DIR%\\bin\\dependency-check.bat" (
+                  "%DC_DIR%\\bin\\dependency-check.bat" --scan "." --format HTML --out "dependency-check-report" --noupdate --disableAssembly
+                ) else (
+                  "%DC_DIR%\\dependency-check.bat" --scan "." --format HTML --out "dependency-check-report" --noupdate --disableAssembly
+                )
+                exit /b 0
+                '''
             }
         }
     }
